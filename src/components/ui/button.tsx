@@ -9,6 +9,7 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
+        forge: "rounded-none border border-primary/60 bg-transparent text-primary uppercase text-[10px] tracking-[0.15em] hover:bg-primary hover:text-primary-foreground shadow-none",
         default: "bg-primary text-primary-foreground shadow hover:bg-primary/90",
         destructive: "bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90",
         outline:

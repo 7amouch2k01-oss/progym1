@@ -1,0 +1,11 @@
+import { createFileRoute, Link } from '@tanstack/react-router';
+import { useState } from 'react';
+import { PageIntro, ProductCard } from '@/components/store';
+import { categories, products, type Category } from '@/lib/catalog';
+import { pageHead } from '@/lib/page-head';
+export const Route = createFileRoute('/shop')({ validateSearch: (search: Record<string, unknown>): { category: Category } => ({ category: categories.includes(search.category as Category) ? search.category as Category : 'All' }), head: () => pageHead('The Collection | Forge Athletics', 'Explore premium gym equipment, lifting accessories, and training apparel from Forge Athletics.'), component: Shop });
+function Shop() {
+ const { category } = Route.useSearch(); const [sort, setSort] = useState('featured');
+ const filtered = products.filter(product => category === 'All' || product.category === category).sort((a, b) => sort === 'low' ? a.price - b.price : sort === 'high' ? b.price - a.price : sort === 'name' ? a.name.localeCompare(b.name) : 0);
+ return <><PageIntro label="Purpose in every detail" title={category === 'All' ? 'The Forge Collection' : category}>Considered essentials. Uncompromising quality. Everything you need to build your better.</PageIntro><div className="page-width"><div className="collection-toolbar"><nav className="category-filters" aria-label="Product categories">{categories.map(cat => <Link key={cat} to="/shop" search={{ category: cat }} className={cat === category ? 'active' : ''}>{cat === 'All' ? 'All products' : cat}</Link>)}</nav><div className="collection-sort"><span>{filtered.length} products</span><select aria-label="Sort products" value={sort} onChange={event => setSort(event.target.value)}><option value="featured">Featured</option><option value="low">Price: low to high</option><option value="high">Price: high to low</option><option value="name">Name: A–Z</option></select></div></div><div className="product-grid collection-grid">{filtered.map(product => <ProductCard key={product.id} product={product} />)}</div></div></>;
+}
