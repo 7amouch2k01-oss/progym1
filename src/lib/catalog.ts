@@ -299,7 +299,7 @@ export async function addSubscriber(email: string): Promise<void> {
 
 export const products = defaultProducts;
 export const categories: Category[] = ['All', 'Equipment', 'Accessories', 'Apparel', 'Racks & storage'];
-export const money = (value: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(value);
+export const money = (value: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'TND', minimumFractionDigits: 3, maximumFractionDigits: 3 }).format(value);
 export type CartItem = { productId: string; option: string; quantity: number };
 
 export function addCartItem(items: CartItem[], productId: string, option: string): CartItem[] {

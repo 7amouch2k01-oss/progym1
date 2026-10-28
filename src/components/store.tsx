@@ -1,6 +1,6 @@
-import { createContext, useContext, useState, type ReactNode } from 'react';
+import { createContext, useContext, useState, useEffect, type ReactNode } from 'react';
 import { Link, useNavigate } from '@tanstack/react-router';
-import { ArrowRight, Search, UserRound, ShoppingBag, Menu, Minus, Plus, Trash2, Instagram, Youtube, Check, ChevronDown, X } from 'lucide-react';
+import { ArrowRight, Search, UserRound, ShoppingBag, Menu, Minus, Plus, Trash2, Instagram, Youtube, Check, ChevronDown, X, Sun, Moon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { Sheet, SheetContent, SheetTitle, SheetDescription } from '@/components/ui/sheet';
@@ -19,6 +19,29 @@ export function StoreProvider({ children }: { children: ReactNode }) {
   const [mobile, setMobile] = useState(false);
   const [newsletter, setNewsletter] = useState(false);
   const [email, setEmail] = useState('');
+  const [theme, setTheme] = useState<'dark' | 'light'>('dark');
+  useEffect(() => {
+    const saved = localStorage.getItem('ironsoul_theme') as 'dark' | 'light' | null;
+    const initial = saved || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    setTheme(initial);
+    if (initial === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, []);
+
+  const toggleTheme = () => {
+    const next = theme === 'dark' ? 'light' : 'dark';
+    setTheme(next);
+    localStorage.setItem('ironsoul_theme', next);
+    if (next === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  };
+
   const navigate = useNavigate();
   const count = items.reduce((sum, item) => sum + item.quantity, 0);
   const total = cartTotal(items);
@@ -36,6 +59,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
         <Link to="/" aria-label="Iron Soul home" className="header-brand"><Wordmark /></Link>
         <div className="header-right">
           <nav className="desktop-nav"><Button asChild variant="ghost" className="nav-link"><Link to="/about">About</Link></Button><Button asChild variant="ghost" className="nav-link"><Link to="/journal">Journal</Link></Button></nav>
+          <Button variant="ghost" size="icon" onClick={toggleTheme} aria-label="Toggle Theme" title="Switch Theme">{theme === 'dark' ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}</Button>
           <Button variant="ghost" size="icon" aria-label="Search products" title="Search products" onClick={() => setSearch(true)}><Search /></Button>
           <Button asChild variant="ghost" size="icon" className="account-link" title="Forge Club"><Link to="/club" aria-label="Forge Club"><UserRound /></Link></Button>
           <Button variant="ghost" size="icon" className="bag-button" aria-label={`Shopping bag (${count})`} onClick={() => setBag(true)}><ShoppingBag />{count > 0 && <span className="bag-count">{count}</span>}</Button>
