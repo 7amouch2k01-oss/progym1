@@ -46,7 +46,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     <footer className="store-footer">
       <div className="footer-top page-width">
         <Link to="/" aria-label="Iron Soul home"><Wordmark /></Link>
-        <nav aria-label="Footer navigation"><Link to="/shop" search={{ category: 'All' }}>Shop</Link><Link to="/about">About</Link><Link to="/journal">Journal</Link><Link to="/contact">Contact</Link></nav>
+        <nav aria-label="Footer navigation"><Link to="/shop" search={{ category: 'All' }}>Shop</Link><Link to="/about">About</Link><Link to="/journal">Journal</Link><Link to="/contact">Contact</Link><Link to="/admin" className="text-red-400 font-semibold hover:text-red-300">Admin</Link></nav>
         <div className="social-links"><Button asChild variant="ghost" size="icon"><a href="https://www.instagram.com/" target="_blank" rel="noreferrer" aria-label="Instagram"><Instagram /></a></Button><Button asChild variant="ghost" size="icon"><a href="https://www.youtube.com/" target="_blank" rel="noreferrer" aria-label="YouTube"><Youtube /></a></Button></div>
         <form className="newsletter" onSubmit={event => { event.preventDefault(); setNewsletter(true); }}><label htmlFor="newsletter-email">Join our newsletter</label><div><input type="email" id="newsletter-email" placeholder="Your email address" required value={email} onChange={event => setEmail(event.target.value)} /><Button type="submit" variant="ghost" size="icon" aria-label="Join newsletter"><ArrowRight /></Button></div></form>
       </div>
