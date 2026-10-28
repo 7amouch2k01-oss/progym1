@@ -9,7 +9,7 @@ import { addCartItem, cartTotal, products, money, type CartItem, type Product } 
 type StoreState = { items: CartItem[]; add: (id: string, option: string) => void; update: (id: string, option: string, quantity: number) => void; openBag: () => void; total: number };
 const StoreContext = createContext<StoreState | null>(null);
 export function useStore() { const store = useContext(StoreContext); if (!store) throw new Error('Store provider is required'); return store; }
-export function Wordmark() { return <span className="wordmark">FORGE<span>ATHLETICS</span></span>; }
+export function Wordmark() { return <span className="wordmark">IRON<span>SOUL</span></span>; }
 
 export function StoreProvider({ children }: { children: ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([]);
@@ -33,7 +33,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
           <Button asChild variant="ghost" className="nav-link"><Link to="/shop" search={{ category: 'Apparel' }}>Apparel <ChevronDown /></Link></Button>
         </nav>
         <Button variant="ghost" size="icon" className="mobile-menu" aria-label="Open menu" onClick={() => setMobile(true)}><Menu /></Button>
-        <Link to="/" aria-label="Forge Athletics home" className="header-brand"><Wordmark /></Link>
+        <Link to="/" aria-label="Iron Soul home" className="header-brand"><Wordmark /></Link>
         <div className="header-right">
           <nav className="desktop-nav"><Button asChild variant="ghost" className="nav-link"><Link to="/about">About</Link></Button><Button asChild variant="ghost" className="nav-link"><Link to="/journal">Journal</Link></Button></nav>
           <Button variant="ghost" size="icon" aria-label="Search products" title="Search products" onClick={() => setSearch(true)}><Search /></Button>
@@ -45,12 +45,12 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     <main>{children}</main>
     <footer className="store-footer">
       <div className="footer-top page-width">
-        <Link to="/" aria-label="Forge Athletics home"><Wordmark /></Link>
+        <Link to="/" aria-label="Iron Soul home"><Wordmark /></Link>
         <nav aria-label="Footer navigation"><Link to="/shop" search={{ category: 'All' }}>Shop</Link><Link to="/about">About</Link><Link to="/journal">Journal</Link><Link to="/contact">Contact</Link></nav>
         <div className="social-links"><Button asChild variant="ghost" size="icon"><a href="https://www.instagram.com/" target="_blank" rel="noreferrer" aria-label="Instagram"><Instagram /></a></Button><Button asChild variant="ghost" size="icon"><a href="https://www.youtube.com/" target="_blank" rel="noreferrer" aria-label="YouTube"><Youtube /></a></Button></div>
         <form className="newsletter" onSubmit={event => { event.preventDefault(); setNewsletter(true); }}><label htmlFor="newsletter-email">Join our newsletter</label><div><input type="email" id="newsletter-email" placeholder="Your email address" required value={email} onChange={event => setEmail(event.target.value)} /><Button type="submit" variant="ghost" size="icon" aria-label="Join newsletter"><ArrowRight /></Button></div></form>
       </div>
-      <div className="footer-bottom page-width"><span>© {new Date().getFullYear()} Forge Athletics. All rights reserved.</span><span>Strength / Discipline / Longevity</span></div>
+      <div className="footer-bottom page-width"><span>© {new Date().getFullYear()} Iron Soul. All rights reserved.</span><span>Strength / Discipline / Longevity</span></div>
     </footer>
     <Sheet open={bag} onOpenChange={setBag}><SheetContent className="cart-sheet w-full sm:max-w-md"><SheetTitle className="font-display text-2xl font-normal">Your shopping bag <span className="text-primary">({count})</span></SheetTitle><SheetDescription>Equipment for the work ahead.</SheetDescription>
       {items.length === 0 ? <div className="empty-bag"><ShoppingBag size={40} /><h3>Your next chapter starts here.</h3><p>Your bag is currently empty.</p><Button variant="forge" onClick={() => { setBag(false); navigate({ to: '/shop', search: { category: 'All' } }); }}>Explore the collection <ArrowRight /></Button></div> : <><div className="bag-items">{items.map(item => { const product = products.find(p => p.id === item.productId); if (!product) return null; return <div className="bag-item" key={`${item.productId}-${item.option}`}><img src={product.image} alt={product.name} width={100} height={100} /><div><Link to="/product/$slug" params={{ slug: product.id }} onClick={() => setBag(false)}>{product.name}</Link><p>{item.option}</p><span>{money(product.price)}</span><div className="quantity-control"><Button variant="ghost" size="icon" aria-label={`Decrease ${product.name} quantity`} onClick={() => update(item.productId, item.option, item.quantity - 1)}><Minus /></Button><span>{item.quantity}</span><Button variant="ghost" size="icon" aria-label={`Increase ${product.name} quantity`} onClick={() => update(item.productId, item.option, item.quantity + 1)}><Plus /></Button><Button variant="ghost" size="icon" aria-label={`Remove ${product.name}`} onClick={() => update(item.productId, item.option, 0)}><Trash2 /></Button></div></div></div>; })}</div><div className="bag-summary"><div><span>Subtotal</span><strong>{money(total)}</strong></div><p>Shipping and taxes calculated at checkout.</p><Button variant="forge" className="w-full" onClick={() => { setBag(false); navigate({ to: '/checkout' }); }}>Continue to checkout <ArrowRight /></Button><Button variant="ghost" className="w-full mt-2 text-xs" onClick={() => setBag(false)}>Continue shopping</Button></div></>}

@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { PageIntro, ProductCard } from '@/components/store';
 import { categories, products, type Category } from '@/lib/catalog';
 import { pageHead } from '@/lib/page-head';
-export const Route = createFileRoute('/shop')({ validateSearch: (search: Record<string, unknown>): { category: Category } => ({ category: categories.includes(search.category as Category) ? search.category as Category : 'All' }), head: () => pageHead('The Collection | Forge Athletics', 'Explore premium gym equipment, lifting accessories, and training apparel from Forge Athletics.'), component: Shop });
+export const Route = createFileRoute('/shop')({ validateSearch: (search: Record<string, unknown>): { category: Category } => ({ category: categories.includes(search.category as Category) ? search.category as Category : 'All' }), head: () => pageHead('The Collection | Iron Soul', 'Explore premium gym equipment, lifting accessories, and training apparel from Iron Soul.'), component: Shop });
 function Shop() {
  const { category } = Route.useSearch(); const [sort, setSort] = useState('featured');
  const filtered = products.filter(product => category === 'All' || product.category === category).sort((a, b) => sort === 'low' ? a.price - b.price : sort === 'high' ? b.price - a.price : sort === 'name' ? a.name.localeCompare(b.name) : 0);

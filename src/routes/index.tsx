@@ -7,7 +7,7 @@ import hero from '@/assets/forge-hero.jpg';
 import community from '@/assets/forge-community.jpg';
 import { pageHead } from '@/lib/page-head';
 
-export const Route = createFileRoute('/')({ head: () => pageHead('Forge Athletics | Premium Gym Equipment & Apparel', 'Performance-driven equipment, premium training apparel, and lifting essentials. Built for those who train with intention.'), component: Index });
+export const Route = createFileRoute('/')({ head: () => pageHead('Iron Soul | Premium Gym Equipment & Apparel', 'Performance-driven equipment, premium training apparel, and lifting essentials. Built for those who train with intention.'), component: Index });
 function Index() {
   const tiles = [{ title: 'Strength equipment', category: 'Equipment' as const, image: products[0]?.image }, { title: 'Lifting accessories', category: 'Accessories' as const, image: products[1]?.image }, { title: 'Apparel', category: 'Apparel' as const, image: products[4]?.image }, { title: 'Racks & storage', category: 'Racks & storage' as const, image: products[3]?.image }];
   const perks = [{ icon: Crown, title: 'Exclusive pricing', text: 'Member-only deals and early access.' }, { icon: BookOpen, title: 'Training resources', text: 'Programs, guides, and expert content.' }, { icon: PackageOpen, title: 'Early product drops', text: 'Be the first to know.' }, { icon: UsersRound, title: 'The Forge community', text: 'Stronger together.' }];
