@@ -6,7 +6,7 @@ import { pageHead } from '@/lib/page-head';
 
 export const Route = createFileRoute('/shop')({
   validateSearch: (search: Record<string, unknown>): { category: Category } => ({
-    category: categories.includes(search.category as Category) ? (search.category as Category) : 'All',
+    category: categories.includes(search['category'] as Category) ? (search['category'] as Category) : 'All',
   }),
   head: () => pageHead('The Collection | Iron Soul', 'Explore premium gym equipment, lifting accessories, and training apparel from Iron Soul.'),
   component: Shop,
