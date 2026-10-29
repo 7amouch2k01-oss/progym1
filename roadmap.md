@@ -1,5 +1,5 @@
-# Storefront
-- [ ] Recreate the selected dark-and-gold home page.
-- [ ] Build collections, product details, shopping bag, and frontend checkout.
-- [ ] Add supporting brand pages and membership/newsletter forms.
-- [ ] Verify shopping flow and narrow-screen layout.
+# Store operations
+- [ ] Connect Cloud, secure customer profiles and admin roles.
+- [ ] Implement TND cash-on-delivery checkout, guest confirmation and customer order history.
+- [ ] Implement admin catalog, customers, orders, manual sales and delivery management.
+- [ ] Add light theme and verify customer/admin flows and tests.
